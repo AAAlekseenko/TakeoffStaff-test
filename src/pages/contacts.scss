@@ -1,0 +1,19 @@
+.modal__btn_close{
+  display: flex;
+  justify-content: flex-end;
+}
+.modal__form-wrapper {
+  text-align: center;
+}
+.modal__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.model__input {
+  margin-top: 10px;
+  width: 300px;
+  height: 25px;
+  border-radius: 10px;
+  outline: none;
+}
