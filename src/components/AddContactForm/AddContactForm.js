@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const AddContactForm = (props) => {
 
-    const [user, setUser] = useState({firstName:'', lastName: '', phone:''})
+    const [user, setUser] = useState({firstName: '', lastName: '', phone: ''})
 
     const handleChangeUser = (e) => {
         const {name, value} = e.target;
@@ -34,9 +34,12 @@ const AddContactForm = (props) => {
         <div className='modal__form-wrapper'>
             <div>Добавить Контакт</div>
             <form className='modal__form' onSubmit={handleAddContact}>
-                <input onChange={handleChangeUser} type='text' name='firstName' placeholder='Имя' className='model__input' value={user.firstName}/>
-                <input onChange={handleChangeUser} type='text' name='lastName' placeholder='Фамилия' className='model__input' value={user.lastName}/>
-                <input onChange={handleChangeUser} name='phone' placeholder='Номер телефона' className='model__input'  value={user.phone}/>
+                <input onChange={handleChangeUser} type='text' name='firstName' placeholder='Имя'
+                       className='model__input' value={user.firstName} autoComplete="off"/>
+                <input onChange={handleChangeUser} type='text' name='lastName' placeholder='Фамилия'
+                       className='model__input' value={user.lastName} autoComplete="off"/>
+                <input onChange={handleChangeUser} name='phone' placeholder='Номер телефона' className='model__input'
+                       value={user.phone} autoComplete="off"/>
                 <button onClick={handleAddContact}>Добавить</button>
             </form>
         </div>
