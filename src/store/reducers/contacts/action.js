@@ -26,17 +26,20 @@ export const deleteContact = (payload) => {
 }
 
 
+
+
+
 export const getContactsAxios = (id) => (dispatch) => {
     return instance.get(`contacts?userId=${id}`)
         .then(response => dispatch(setContacts(response.data)))
 };
 
-export const addContactAxios = (contact, userId) => (dispatch) => {
+export const addContactAxios = (firstName, lastName, phone, userId) => (dispatch) => {
     return instance.post('contacts',
         {
-            firstName: contact.firstName,
-            lastName: contact.lastName,
-            phone: contact.phone,
+            firstName,
+            lastName,
+            phone,
             userId: userId
         }
     ).then(response => dispatch(addContact(response.data)))

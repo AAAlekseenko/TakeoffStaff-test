@@ -28,6 +28,7 @@ const reducer = (state = initialState, action) => {
                 // eslint-disable-next-line
                 contacts: state.contacts.filter((contact) => contact.id != action.payload)
             }
+
         default:
             return state
     }

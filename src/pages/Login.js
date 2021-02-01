@@ -3,7 +3,8 @@ import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {setIsAuth, signIn} from "../store/reducers/auth/action";
 import {REGISTER} from "../assets/routeConsts";
-import syncAuth from "../assets/checkAuth"
+import syncAuth from "../api/syncAuth"
+import {useInput} from "../api/validation";
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -12,66 +13,63 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-
-const mapStateToProps = (state) => {
-    return {}
-}
-
 const Login = (props) => {
+    let history = useHistory();
+    const email = useInput('', {isEmpty: true, emailError: true});
+    const password = useInput('', {isEmpty: true, minLength: 4});
+    const [error, setError] = useState('')
 
-    const [email, setEmail] = useState('');
-
-    const [password, setPassword] = useState('');
-
-    const history = useHistory();
-
-    const handleChangePassword = (e) => {
-        return setPassword(e.target.value.trim())
-    }
-
-    const handleChangeEmail = (e) => {
-        return setEmail(e.target.value.trim())
-    }
 
     const toRegisterPage = () => {
         history.push(REGISTER)
     }
     const handleSignIn = async (e) => {
         e.preventDefault()
-        await props.signIn(email, password)
+        await props.signIn(email.value, password.value)
             .then(() => {
-                    history.push('/contacts');
+                toRegisterPage()
                 }
             )
-            .catch(Error)
+            .catch((error) => {
+                setError(error)
+            })
     }
 
 
     return (
-        <div>
-            <div>
+        <div className='auth__body'>
+            <div className='auth__wrapper'>
                 <h1>Вход</h1>
-                <form onSubmit={handleSignIn}>
-
-                    <label>
+                <form onSubmit={handleSignIn} className='auth__form'>
+                    <div className='error__message'>{error}</div>
+                    <label className='auth__input-wrapper'>
                         Введите почту
-                        <input type='text' onChange={handleChangeEmail} value={email}/>
+                        <input
+                            type='text'
+                            onBlur={e => email.onBlur(e)}
+                            onChange={e => email.onChange(e)}
+                            value={email.value}
+                            className='auth__input'/>
                     </label>
-                    <label>
+                    <label className='auth__input-wrapper'>
                         Введите пароль
-                        <input type='password' onChange={handleChangePassword} value={password}/>
+                        <input
+                            type='password'
+                            onBlur={e => password.onBlur(e)}
+                            onChange={e => password.onChange(e)}
+                            value={password.value}
+                            className='auth__input'/>
                     </label>
-                    <button onClick={handleSignIn}>
+                    <button disabled={!email.inputValid || !password.inputValid } onClick={handleSignIn} className='auth__btn'>
                         Войти
                     </button>
-
                 </form>
-                <div>
-                    <button onClick={toRegisterPage}>К окну регистрации</button>
+                <div className='auth__btn-wrapper'>
+                    <button onClick={toRegisterPage} className='auth__btn'>К окну регистрации</button>
                 </div>
             </div>
         </div>
     );
 };
-const storeEnhancer = connect(mapStateToProps, mapDispatchToProps);
+const storeEnhancer = connect(undefined, mapDispatchToProps);
 export default storeEnhancer(syncAuth(Login, false, '/contacts'));

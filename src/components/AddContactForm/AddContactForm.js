@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {addContactAxios} from "../../store/reducers/contacts/action";
 import {connect} from "react-redux";
 import {getUserId} from "../../api/api";
+import '../ChangeContactForm/contactModalForm.scss'
+import {useInput} from "../../api/validation";
 
 const mapStateToProps = (state) => {
     return {
@@ -11,36 +13,55 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addContactAxios: (user, userId) => dispatch(addContactAxios(user, userId))
+        addContactAxios: (firstName, lastName, phone, userId) => dispatch(addContactAxios(firstName, lastName, phone, userId))
     };
 };
 
 
 const AddContactForm = (props) => {
 
-    const [user, setUser] = useState({firstName: '', lastName: '', phone: ''})
+    const firstName = useInput('', {isEmpty: true});
+    const lastName = useInput('', {isEmpty: true});
+    const phone = useInput('', {isEmpty: true});
 
-    const handleChangeUser = (e) => {
-        const {name, value} = e.target;
-        setUser({...user, [name]: value})
-    }
 
     const handleAddContact = (e) => {
         e.preventDefault()
-        props.addContactAxios(user, props.userId).then(props.onSave)
+        props.addContactAxios(firstName.value, lastName.value, phone.value, props.userId).then(props.onSave)
     }
 
     return (
         <div className='modal__form-wrapper'>
             <div>Добавить Контакт</div>
             <form className='modal__form' onSubmit={handleAddContact}>
-                <input onChange={handleChangeUser} type='text' name='firstName' placeholder='Имя'
-                       className='model__input' value={user.firstName} autoComplete="off"/>
-                <input onChange={handleChangeUser} type='text' name='lastName' placeholder='Фамилия'
-                       className='model__input' value={user.lastName} autoComplete="off"/>
-                <input onChange={handleChangeUser} name='phone' placeholder='Номер телефона' className='model__input'
-                       value={user.phone} autoComplete="off"/>
-                <button onClick={handleAddContact}>Добавить</button>
+                <input
+                    onBlur={e => firstName.onBlur(e)}
+                    onChange={e => firstName.onChange(e)}
+                    type='text' name='firstName'
+                    placeholder='Имя'
+                    className='modal__input'
+                    value={firstName.value}
+                    autoComplete="off"/>
+                <input
+                    onBlur={e => lastName.onBlur(e)}
+                    onChange={e => lastName.onChange(e)}
+                    type='text'
+                    name='lastName'
+                    placeholder='Фамилия'
+                    className='modal__input'
+                    value={lastName.value}
+                    autoComplete="off"/>
+                <input
+                    onBlur={e => phone.onBlur(e)}
+                    onChange={e => phone.onChange(e)}
+                    name='phone'
+                    placeholder='Номер телефона'
+                    className='modal__input'
+                    value={phone.value}
+                    autoComplete="off"/>
+                <button disabled={!firstName.inputValid || !lastName.inputValid || !phone.inputValid}
+                        className='modal__btn' onClick={handleAddContact}>Добавить
+                </button>
             </form>
         </div>
     );

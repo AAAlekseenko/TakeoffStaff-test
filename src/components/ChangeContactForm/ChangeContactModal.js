@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {getUserId} from "../../api/api";
 import {changeContactAxios} from "../../store/reducers/contacts/action";
 import {getContactById} from "../../store/reducers/contacts/getters";
-
+import './contactModalForm.scss'
 const mapStateToProps = (state, {contactId}) => {
     return {
         userId: getUserId(state),
@@ -43,13 +43,14 @@ const ChangeContactForm = (props) => {
         <div className='modal__form-wrapper'>
             <div>Изменить Контакт</div>
             <form className='modal__form' onSubmit={handleChangeContact}>
-                <input onChange={handleChangeUser} type='text' name='firstName' placeholder='Имя'
-                       className='model__input' value={user.firstName} autoComplete="off"/>
+                <input   onChange={handleChangeUser} type='text' name='firstName' placeholder='Имя'
+                       className='modal__input' value={user.firstName} autoComplete="off"/>
                 <input onChange={handleChangeUser} type='text' name='lastName' placeholder='Фамилия'
-                       className='model__input' value={user.lastName} autoComplete="off"/>
+                       className='modal__input' value={user.lastName} autoComplete="off"/>
                 <input onChange={handleChangeUser} type='text' name='phone' placeholder='Номер телефона'
-                       className='model__input' value={user.phone} autoComplete="off"/>
-                <button onClick={handleChangeContact}>Изменить</button>
+                       className='modal__input' value={user.phone} autoComplete="off"/>
+
+                <button className='modal__btn' onClick={handleChangeContact}>Изменить</button>
             </form>
         </div>
     );

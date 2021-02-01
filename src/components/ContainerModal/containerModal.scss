@@ -1,0 +1,21 @@
+.modal__btn_close {
+    color: #ffffff;
+    border-radius: 15px;
+    background-color: #1C1C24;
+    border-color: #4447E2;
+    width: 200px;
+    padding: 15px;
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+    margin: 0 auto;
+    &:hover {
+      background-color: #4447E2;
+    }
+}
+
+.btn-close__wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
