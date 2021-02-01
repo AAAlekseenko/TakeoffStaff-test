@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {setIsAuth, signIn} from "../store/reducers/auth/action";
-import {REGISTER} from "../assets/routeConsts";
+import {REGISTER} from "../api/routeConsts";
 import syncAuth from "../api/syncAuth"
 import {useInput} from "../api/validation";
 
@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const Login = (props) => {
     let history = useHistory();
-    const email = useInput('', {isEmpty: true, emailError: true});
+    const email = useInput('', {isEmpty: true, emailError: false});
     const password = useInput('', {isEmpty: true, minLength: 4});
     const [error, setError] = useState('')
 

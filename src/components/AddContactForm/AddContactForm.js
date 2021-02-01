@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {addContactAxios} from "../../store/reducers/contacts/action";
 import {connect} from "react-redux";
 import {getUserId} from "../../api/api";

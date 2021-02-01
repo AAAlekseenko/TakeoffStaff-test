@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {signUp} from "../store/reducers/auth/action";
-import {LOGIN} from "../assets/routeConsts";
+import {LOGIN} from "../api/routeConsts";
 import syncAuth from "../api/syncAuth";
 import {getIsAuth} from "../store/reducers/auth/getters";
 import './auth.scss'

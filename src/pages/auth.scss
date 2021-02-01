@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .error__message {
@@ -35,6 +36,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 1px solid #4447E2;
+  border-radius: 15px;
+  padding: 10px;
 }
 
 .auth__form {

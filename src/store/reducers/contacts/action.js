@@ -32,6 +32,10 @@ export const deleteContact = (payload) => {
 export const getContactsAxios = (id) => (dispatch) => {
     return instance.get(`contacts?userId=${id}`)
         .then(response => dispatch(setContacts(response.data)))
+        .catch((response) => {
+            console.error(response.response.data)
+            console.error('Багосы JSON сервера')
+        } )
 };
 
 export const addContactAxios = (firstName, lastName, phone, userId) => (dispatch) => {

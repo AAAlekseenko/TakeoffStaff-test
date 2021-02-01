@@ -1,11 +1,10 @@
-import './App.css';
 import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
 import {Provider} from "react-redux";
 import store from "./store/store";
 import Contacts from "./pages/Contacts";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import {CONTACTS, LOGIN, REGISTER} from "./assets/routeConsts";
+import {CONTACTS, LOGIN, REGISTER} from "./api/routeConsts";
 
 function App() {
     return (
